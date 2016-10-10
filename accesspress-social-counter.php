@@ -330,6 +330,9 @@ if (!class_exists('SC_Class')) {
                 case 'short':
                     $count = $this->abreviateTotalCount($count);
                     break;
+                case 'without_coma':
+					$count = $this->abreviateTotalCountWithoutComma($count);
+					break;
                 default:
                     break;
             }
@@ -350,6 +353,19 @@ if (!class_exists('SC_Class')) {
                 if ($value >= pow(10, $exponent)) {
 
                     return round(floatval($value / pow(10, $exponent)), 1) . $abbreviation;
+                }
+            }
+        }
+        
+        function abreviateTotalCountWithoutComma($value) {
+
+            $abbreviations = array(12 => 'T', 9 => 'B', 6 => 'M', 3 => 'K', 0 => '');
+
+            foreach ($abbreviations as $exponent => $abbreviation) {
+
+                if ($value >= pow(10, $exponent)) {
+
+                    return round(floatval($value / pow(10, $exponent)), 0) . $abbreviation;
                 }
             }
         }
